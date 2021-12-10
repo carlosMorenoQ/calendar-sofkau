@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
@@ -28,9 +29,8 @@ class SchedulerServiceTest {
     @Mock
     ProgramRepository repository;
 
-
-    @Test
-        //TODO: modificar el test para que el act sea reactivo, usando stepverifier
+    // aquiii
+    @Test //TODO: modificar el test para que el act sea reactivo, usando stepverifier
     void generateCalendar() {
         var programId = "xxxx";
         var startDate = LocalDate.of(2022, 1, 1);
@@ -39,12 +39,33 @@ class SchedulerServiceTest {
 
         Mockito.when(repository.findById(programId)).thenReturn(Mono.just(program));
         //TODO: hacer una subscripción de el servicio reactivo
-        List<ProgramDate> response = schedulerService.generateCalendar(programId, startDate);
+        Flux<ProgramDate> response = schedulerService.generateCalendar(programId, startDate);
+        response.subscribe();
 
-        Assertions.assertEquals(13, response.size());//TODO: hacer de otro modo
+//        Assertions.assertEquals(13, response.size());//TODO: hacer de otro modo
         Assertions.assertEquals(getSnapResult(), new Gson().toJson(response));//TODO: hacer de otro modo
         Mockito.verify(repository).findById(programId);
     }
+
+    /*
+    *     @Test //TODO: modificar el test para que el act sea reactivo, usando stepverifier
+    void generateCalendar() {
+        var programId = "xxxx";
+        var startDate = LocalDate.of(2022, 1, 1);
+
+        Program program = getProgramDummy();
+
+        Mockito.when(repository.findById(programId)).thenReturn(Mono.just(program));
+        //TODO: hacer una subscripción de el servicio reactivo
+        Flux<ProgramDate> response = schedulerService.generateCalendar(programId, startDate);
+        response.subscribe();
+
+//        Assertions.assertEquals(13, response.size());//TODO: hacer de otro modo
+        Assertions.assertEquals(getSnapResult(), new Gson().toJson(response));//TODO: hacer de otro modo
+        Mockito.verify(repository).findById(programId);
+    }
+
+    * */
 
     @Test
     void programNoFound() {
