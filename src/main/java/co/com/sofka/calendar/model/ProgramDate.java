@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public final class ProgramDate {
+
     private final String categoryName;
     private final LocalDate date;
 
