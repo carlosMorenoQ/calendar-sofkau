@@ -33,7 +33,6 @@ public class SchedulerService {
         //TODO: debe pasarlo a reactivo, no puede trabaja elementos bloqueantes
         //TODO: trabajar el map reactivo y no deben colectar
         var program = programRepository.findById(programId);
-
         return program
                 .flatMapMany(programa -> Flux.fromStream(getDurationOf(programa)))
                 .map(toProgramDate(startDate, endDate, pivot[0], index))
