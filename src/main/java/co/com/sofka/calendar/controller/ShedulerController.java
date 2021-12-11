@@ -32,5 +32,9 @@ public class ShedulerController {
         return programDateService.saveAll(generado);
     }
 
+    @GetMapping("/programas")
+    public Flux<ProgramDate> programas() {
+        return programDateService.getAll();
+    }
 
 }

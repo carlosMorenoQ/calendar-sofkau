@@ -17,4 +17,8 @@ public class ProgramDateService {
         return programDateRepository.saveAll(program);
     }
 
+    public Flux<ProgramDate> getAll(){
+        return programDateRepository.findAll();
+    }
+
 }
