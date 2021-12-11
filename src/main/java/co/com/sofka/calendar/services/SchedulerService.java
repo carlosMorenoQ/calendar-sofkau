@@ -41,12 +41,6 @@ public class SchedulerService {
 
 
 
-
-
-
-
-
-
     //No tocar
     private Function<String, ProgramDate> toProgramDate(LocalDate startDate, AtomicReference<LocalDate> endDate, AtomicInteger atomicInteger, int[] index) {
         return category -> {
